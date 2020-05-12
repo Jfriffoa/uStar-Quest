@@ -1,0 +1,95 @@
+.button-difficulty {
+  padding: 6px 10px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  background: #f0f0f0;
+  margin-bottom: -1px;
+  margin-right: -1px;
+}
+
+/*.button-diffculty:hover {
+  background: #e0e0e0;
+}*/
+
+.button-difficulty.active {
+  background: #275929;
+	color: white;
+}
+
+.tab {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.title {
+	font-family: "Verdana";
+	font-weight: bold;
+	font-size: 30px;
+}
+
+.subtitle {
+	font-family: "Courier New";
+	font-size: 20px;
+}
+
+.text, .label {
+	font-family: "Verdana";
+}
+
+.label {
+	font-weight: bold;
+}
+
+.game {
+	background: #ffff99;
+	text-align: center;
+	padding: 15px;
+}
+
+.panel {
+	margin: auto;
+	width: 50%;
+}
+
+.inside-panel {
+	text-align: left;
+}
+
+.slider {
+	transform: translateY(20%);
+}
+
+.button, .button-auto, .button-red, .button-red-auto {
+	padding: 5px 10px;
+	width: 8em;
+  border-radius: 3px;
+  /*border: 1px solid #ccc;*/
+  background: #ffcc99;
+	font-family: "Verdana";
+}
+
+.button:hover, .button-auto:hover, .button-difficulty:hover {
+	background: #4caf50;
+	color: white;
+}
+
+.button-auto {
+	width: auto;
+}
+
+.button-red {
+	background:#ff4d4d;
+}
+
+.button-red:hover, .button-red-auto:hover {
+	background: #cc0000;
+	color: white;
+}
+
+.button-red-auto {
+	width: auto;
+	background: red;
+	color: white;
+}

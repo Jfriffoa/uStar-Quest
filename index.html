@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+    <title>Star Quest</title>
+
+	<link rel="stylesheet" href="css/style.css">
+	<script src="https://unpkg.com/vue"></script>
+	<script src="js/phaser.js"></script>
+</head>
+<body>
+	<script defer src="js/menu.js"></script>
+	<script src="js/game.js"></script>
+
+	<!-- Div central del juego -->
+	<div id="Game" class="game">
+
+		<!-- Menu principal -->
+		<div id="MainMenu">
+			<div class="title">Star Quest</div>
+			<div class="subtitle">{{ subtitle }}</div>
+			<br>
+			<div v-show='show[0]'>
+				<button class="button" v-on:click="change_screen(1)">Play</button><br>
+				<button class="button" v-on:click="change_screen(3)">Saves</button><br>
+				<button class="button" v-on:click="change_screen(8)">Leaderboard</button><br>
+				<button class="button" v-on:click="change_screen(4)">Options</button><br>
+				<button class="button" v-on:click="change_screen(5)">Exit</button>
+			</div>
+
+			<!-- Pantalla de confirmación antes de jugar -->
+			<div v-show='show[1]'>
+				<div class="label">Name: <input v-model="player_name"></div>
+				<br>
+				<button class="button-red" v-on:click="change_screen(0)">Back</button>
+				<button class="button" v-on:click="create_game">Play</button>
+			</div>
+		</div>
+
+		<!-- Juego -->
+		<div v-show='show[2]'>
+			<div id="game-area"></div>
+			<br>
+			<button class="button" v-on:click="load_game">Load</button>
+			<button class="button" v-on:click="pause_game">Pause</button>
+			<button class="button" v-on:click="save_game">Save</button>
+			<br>
+			<button class="button-red" v-on:click="change_screen(0)">Back</button>
+		</div>
+		
+		<!-- Pantalla de Game Over-->
+		<div v-show="show[7]">
+			<game-stats
+				v-bind:game="actual_game"
+				v-bind:key="actual_game.id"
+			></game-stats>
+			<br>
+			<button class="button" v-on:click="create_game">Try Again</button>
+			<button class="button-red" v-on:click="change_screen(0)">Back</button>
+		</div>
+
+		<!-- Lista de Partidas -->
+		<div v-show="show[3]" class="panel">
+			<save-state
+				v-for="(game, index) in saved_games"
+				v-bind:save="game"
+				v-bind:index="index"
+				v-bind:key="game.id"
+				ref="saved_components"
+			></save-state>
+			<br>
+			<button class="button-red" v-on:click="change_screen(0)">Back</button>
+			<button class="button-red-auto" v-on:click="delete_selection">Delete Selection</button>
+		</div>
+
+		<!-- Lista de Puntajes -->
+		<div v-show="show[8]" class="panel">
+			<score-stats
+				v-for="(score, index) in scores"
+				v-bind:score="score"
+				v-bind:index="index"
+				v-bind:key="index"
+			></score-stats>
+			<br>
+			<button class="button-red" v-on:click="change_screen(0)">Back</button>
+		</div>
+
+		<!-- Opciones -->
+		<div v-show='show[4]'>
+				<div>
+					<span class="label">Difficulty:</span>
+					<button
+						v-for="difficult in difficulties"
+						v-bind:key="difficult"
+						v-bind:class="['button-difficulty', { active: difficulty === difficult }]"
+						v-on:click="difficulty = difficult">
+						{{ difficult }}
+					</button>
+				</div>
+				<br>
+				<div>
+					<span class="label"> Volume: </span>
+					<input type="range" min="0" max="100" value="50" v-model="volume" class="slider">
+					<span class="text">{{ volume }}</span>
+				</div>
+				<br>
+			<button class="button-red" v-on:click="change_screen(0)">Back</button>
+		</div>
+		
+		<!-- Salir -->
+		<div v-show="show[5]">
+		<button class="button" v-on:click="change_screen(0)">No</button>
+			<button class="button-red" v-on:click="change_screen(6)">Yes</button>
+		</div>
+		
+		<!-- Fuera del juego -->
+		<div v-show="show[6]">
+			<h1>THANKS FOR PLAYING</h1>
+		</div>
+	</div>
+</body>
+</html>
